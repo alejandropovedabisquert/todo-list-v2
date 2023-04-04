@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Table from './components/Table';
+import TableForm from './components/TableForm';
 
 const initialData = {
   tasks: {
@@ -110,8 +111,9 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div>
       <h1 className='ml-5 text-2xl'>TODO List</h1>
+      <TableForm data={data} setData={setData}/>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId='all-tables' direction='horizontal' type='table'>
           {(provided, snapshot)=>{
