@@ -11,7 +11,7 @@ const Table = ({tasks, table, index}) =>{
                 }
                 return(
                     <div
-                        className={`w-72 m-5`}
+                        className={`w-72 min-w-[18rem] m-5`}
                         {...provided.draggableProps}
                         ref={provided.innerRef}
                     >
