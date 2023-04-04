@@ -42,7 +42,7 @@ function App() {
     const start = data.tables[source.droppableId]
     const end = data.tables[destination.droppableId]
 
-    if (type == "table") {
+    if (type === "table") {
       console.log(destination, source, draggableId)
       const newOrder = [...data.tableOrder]
       newOrder.splice(source.index, 1)
@@ -82,36 +82,59 @@ function App() {
     startTaskIds.splice(source.index, 1)
     endTaskIds.splice(destination.index, 0, draggableId)
 
+    const newStartTable = {
+      ...start,
+      taskIds: startTaskIds
+    }
+
+    const endTaskTable = {
+      ...end,
+      taskIds: endTaskIds
+    }
+
+    setData({
+      ...data,
+      tables: {
+        ...data.tables,
+        [start.id]: newStartTable,
+        [end.id]: endTaskTable
+      }
+    })
+
 
   }
 
   return (
     <div className="App">
-      <h1>TODO List</h1>
+      <h1 className='ml-5 text-2xl'>TODO List</h1>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId='all-tables' direction='horizontal' type='table'>
-          {(provided, snapshot)=>(
-            <div
-              className='flex justify-around'
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {data.tableOrder.map((tableId, index) =>{
-                const table = data.tables[tableId]
-                const tasks = table.taskIds.map(taskId => data.tasks[taskId])
+          {(provided, snapshot)=>{
+            // console.log(snapshot, "App");
+            return(
+              <div
+                className='flex'
+                style={{backgroundColor: snapshot.isDraggingOver ? 'blue' : 'inherit'}}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {data.tableOrder.map((tableId, index) =>{
+                  const table = data.tables[tableId]
+                  const tasks = table.taskIds.map(taskId => data.tasks[taskId])
 
-                return(
-                  <Table
-                    index={index}
-                    key={table.id}
-                    table={table}
-                    tasks={tasks}
-                  />
-                )
-              })}
-              {provided.placeholder}
-            </div>
-          )}
+                  return(
+                    <Table
+                      index={index}
+                      key={table.id}
+                      table={table}
+                      tasks={tasks}
+                    />
+                  )
+                })}
+                {provided.placeholder}
+              </div>
+            )
+          }}
         </Droppable>
       </DragDropContext>
     </div>
