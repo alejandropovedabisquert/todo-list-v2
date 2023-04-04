@@ -7,13 +7,18 @@ const initialData = {
     "task-1": { id: "task-1", content: "I am task 1" },
     "task-2": { id: "task-2", content: "I am task 2" },
     "task-3": { id: "task-3", content: "I am task 3" },
-    "task-4": { id: "task-4", content: "I am task 4" }
+    "task-4": { id: "task-4", content: "I am task 4" },
+    "task-5": { id: "task-5", content: "I am task 5" },
+    "task-6": { id: "task-6", content: "I am task 6" },
+    "task-7": { id: "task-7", content: "I am task 7" },
+    "task-8": { id: "task-8", content: "I am task 8" },
+    "task-9": { id: "task-9", content: "I am task 9" },
   },
   tables: {
     "table-1": {
       id: "table-1",
       title: "Todo",
-      taskIds: ["task-1", "task-2", "task-3", "task-4"]
+      taskIds: ["task-1", "task-2", "task-3", "task-4", "task-5", "task-6", "task-7", "task-8", "task-9"]
     },
     "table-2": {
       id: "table-2",
@@ -110,11 +115,12 @@ function App() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId='all-tables' direction='horizontal' type='table'>
           {(provided, snapshot)=>{
-            // console.log(snapshot, "App");
+            const style = {
+              backgroundColor: snapshot.isDraggingOver ? 'bg-red-400' : 'inherit',
+            }
             return(
               <div
-                className='flex'
-                style={{backgroundColor: snapshot.isDraggingOver ? 'blue' : 'inherit'}}
+                className={`flex pt-3 min-h-full ${style.backgroundColor}`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >

@@ -6,27 +6,32 @@ const Table = ({tasks, table, index}) =>{
     return(
         <Draggable index={index} draggableId={table.id} type='table'>
             {(provided, snapshot) => {
-  
+                const style = {
+                    backgroundColor: snapshot.isDragging ? 'bg-red-400' : 'inherit',
+                }
                 return(
                     <div
-                        className='bg-slate-300 w-72 m-5 rounded-sm shadow-lg'
-                        ref={provided.innerRef}
+                        className={`w-72 m-5`}
                         {...provided.draggableProps}
-                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
                     >
-                        <h2 className="px-3 pt-3 text-lg font-medium">{table.title}</h2>
+                        <h2 
+                            className="px-3 pt-3 text-lg font-medium bg-slate-300"
+                            {...provided.dragHandleProps}
+                        >
+                            {table.title}
+                        </h2>
                         <Droppable droppableId={table.id} type="task">
                             {(provided, snapshot) => {
                                 const style = {
-                                    backgroundColor: snapshot.isDraggingOver ? 'red' : 'inherit',
+                                    backgroundColor: snapshot.isDraggingOver ? 'bg-red-400' : 'bg-slate-300',
                                 }
-                                // console.log(snapshot, "Table")
+
                                 return(
                                     <div
                                         ref={provided.innerRef}
                                         {...provided.droppableProps}
-                                        style={style}
-                                        className="px-3 pt-3 min-h-full"
+                                        className={`px-3 py-3 rounded-sm shadow-lg ${style.backgroundColor}`}
                                     >
                                         {tasks.map((task, index) =>(
                                             <Task key={task.id} task={task} index={index}/>
