@@ -136,6 +136,8 @@ function App() {
                       key={table.id}
                       table={table}
                       tasks={tasks}
+                      data={data}
+                      setData={setData}
                     />
                   )
                 })}

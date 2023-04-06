@@ -1,8 +1,28 @@
 import { Draggable, Droppable } from "react-beautiful-dnd"
+import { FaTrashAlt, FaRegEdit } from "react-icons/fa";
 import Task from "./Task"
+import TaskForm from "./TaskForm"
 
 
-const Table = ({tasks, table, index}) =>{
+const Table = ({tasks, table, index, data, setData}) =>{
+
+    const handleDeleteTable = (e) =>{
+        const index = data.tableOrder.indexOf(e)
+        console.log(data);
+        let reduceTableOrder = data.tableOrder
+        let reduceTable = data.tables
+        delete reduceTable[e]
+        reduceTableOrder.splice(index, 1)
+        setData({
+            ...data,
+            tableOrder: reduceTableOrder,
+            tables:reduceTable
+        })
+        //Crear una eliminación masiva de las tareas asignadas a una propia tabla
+        // console.log(data.tasks);
+    }
+
+
     return(
         <Draggable index={index} draggableId={table.id} type='table'>
             {(provided, snapshot) => {
@@ -15,12 +35,16 @@ const Table = ({tasks, table, index}) =>{
                         {...provided.draggableProps}
                         ref={provided.innerRef}
                     >
-                        <h2 
-                            className="px-3 pt-3 text-lg font-medium bg-slate-300"
+                        <div 
+                            className="flex px-3 pt-3 text-lg font-medium bg-slate-300 group" 
                             {...provided.dragHandleProps}
                         >
-                            {table.title}
-                        </h2>
+                            <h2 className="w-full">{table.title}</h2>
+                            <div className="float-right">
+                                <span className="cursor-pointer hidden align-middle group-hover:inline-block opacity-40 hover:opacity-75" onClick={() => handleDeleteTable(table.id)}><FaTrashAlt color="red"/></span>
+                            </div>
+
+                        </div>
                         <Droppable droppableId={table.id} type="task">
                             {(provided, snapshot) => {
                                 const style = {
@@ -34,14 +58,16 @@ const Table = ({tasks, table, index}) =>{
                                         className={`px-3 py-3 rounded-sm shadow-lg ${style.backgroundColor}`}
                                     >
                                         {tasks.map((task, index) =>(
-                                            <Task key={task.id} task={task} index={index}/>
+                                            <Task key={task.id} task={task} index={index} data={data} setData={setData} tableId={table.id}/>
                                         ))}
                                         {provided.placeholder}
+                                        <TaskForm data={data} setData={setData} tableId={table.id}/>
                                     </div>
                                 )
                                 
                             }}
                         </Droppable>
+                        
                     </div> 
                 )
                

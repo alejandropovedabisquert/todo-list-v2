@@ -1,7 +1,20 @@
-const { Draggable } = require("react-beautiful-dnd")
+import { Draggable } from "react-beautiful-dnd"
+import { FaTrashAlt, FaRegEdit } from "react-icons/fa";
 
+const Task = ({task, index, data, setData, tableId}) =>{
 
-const Task = ({task, index}) =>{
+    const handleDeleteTask = (e) =>{
+        const index = data.tables[tableId].taskIds.indexOf(e)
+        let reduceTask = data.tasks
+        let reduceTaskAssigned = data.tables[tableId].taskIds
+        delete reduceTask[e]
+        reduceTaskAssigned.splice(index, 1)
+        setData({
+            ...data,
+            tasks: reduceTask,
+            tables: Object.assign({...data.tables, [tableId]: Object.assign(data.tables[tableId], {taskIds: reduceTaskAssigned})})
+        })
+    }
 
     return(
         <Draggable draggableId={task.id} index={index} type="task">
@@ -16,7 +29,13 @@ const Task = ({task, index}) =>{
                         {...provided.draggableProps}
                         className={`p-1 pl-3 rounded-sm mb-3 last:mb-0 ${style.background}`}
                     >
-                        {task.content}
+                        <div className="flex group relative">
+                            <div className="w-full">{task.content}</div>
+                            <div className="float-right">
+                                <span className="cursor-pointer hidden group-hover:inline-block group-hover:absolute group-hover:right-0 group-hover:p-1 group-hover:bg-slate-200 opacity-40 hover:opacity-75" onClick={() => handleDeleteTask(task.id)}><FaTrashAlt color="red"/></span>
+                            </div>
+
+                        </div>
                     </div>
                 )
                 

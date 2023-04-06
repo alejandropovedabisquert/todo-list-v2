@@ -8,27 +8,20 @@ const TableForm = ({data, setData}) =>{
         e.preventDefault()
         const table = tableRef.current.value
         if (table !== "") {
-            const id = Object.keys(data.tables).length + 1
-            console.log(data)
+            const id = "table-"+Object.keys(data.tables).length + 1
             const newTable = {
-                ["table-"+id]: {
-                    id:"table-"+id,
+                [id]: {
+                    id:id,
                     title: table,
                     taskIds: []
                 }
             }
 
-            const asignNewTable = Object.assign(data.tables, newTable)
             setData({
                 ...data,
-                tables: asignNewTable,
-                tableOrder: [...data.tableOrder, "table-"+id]
+                tables: Object.assign(data.tables, newTable),
+                tableOrder: [...data.tableOrder, id]
             })
-            // console.log({
-            //     ...data,
-            //     tables: newTable
-            // })
-            console.log(data);
             e.target.reset()
         }else{
             console.log("esta vacio");
