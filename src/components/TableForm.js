@@ -1,14 +1,14 @@
 import { useRef } from "react";
 
 
-const TableForm = ({data, setData}) =>{
+const TableForm = ({data, setData, projectId}) =>{
     const tableRef = useRef(undefined);
-
     const handleSubmit = (e) =>{
         e.preventDefault()
         const table = tableRef.current.value
         if (table !== "") {
-            const id = "table-"+Object.keys(data.tables).length + 1
+            const conteoTablas = Object.keys(data.projects[projectId].content.tables).length + 1
+            const id = projectId+"-table-"+conteoTablas
             const newTable = {
                 [id]: {
                     id:id,
@@ -17,10 +17,36 @@ const TableForm = ({data, setData}) =>{
                 }
             }
 
+            console.log(newTable);
+
+            // console.log({
+            //     ...data,
+            //     projects:{
+            //         ...data.projects,
+            //         [projectId]:{
+            //             ...data.projects[projectId],
+            //             content:{
+            //                 ...data.projects[projectId].content,
+            //                 tables: Object.assign(data.projects[projectId].content.tables, newTable),
+            //                 tableOrder: [...data.projects[projectId].content.tableOrder, id]
+            //             }
+            //         }
+            //     }
+            // });
+
             setData({
                 ...data,
-                tables: Object.assign(data.tables, newTable),
-                tableOrder: [...data.tableOrder, id]
+                projects:{
+                    ...data.projects,
+                    [projectId]:{
+                        ...data.projects[projectId],
+                        content:{
+                            ...data.projects[projectId].content,
+                            tables: Object.assign(data.projects[projectId].content.tables, newTable),
+                            tableOrder: [...data.projects[projectId].content.tableOrder, id]
+                        }
+                    }
+                }
             })
             e.target.reset()
         }else{

@@ -1,19 +1,22 @@
 import { Draggable } from "react-beautiful-dnd"
 import { FaTrashAlt, FaRegEdit } from "react-icons/fa";
 
-const Task = ({task, index, data, setData, tableId}) =>{
-
+const Task = ({task, index, data, allData, setData, tableId}) =>{
     const handleDeleteTask = (e) =>{
-        const index = data.tables[tableId].taskIds.indexOf(e)
-        let reduceTask = data.tasks
-        let reduceTaskAssigned = data.tables[tableId].taskIds
+        console.log(data);
+        const index = data.content.tables[tableId].taskIds.indexOf(e)
+        let reduceTask = data.content.tasks
+        let reduceTaskAssigned = data.content.tables[tableId].taskIds
         delete reduceTask[e]
         reduceTaskAssigned.splice(index, 1)
         setData({
-            ...data,
-            tasks: reduceTask,
-            tables: Object.assign({...data.tables, [tableId]: Object.assign(data.tables[tableId], {taskIds: reduceTaskAssigned})})
+            ...allData,
         })
+        // setData({
+        //     ...data,
+        //     tasks: reduceTask,
+        //     tables: Object.assign({...data.tables, [tableId]: Object.assign(data.tables[tableId], {taskIds: reduceTaskAssigned})})
+        // })
     }
 
     return(

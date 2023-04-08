@@ -4,19 +4,16 @@ import Task from "./Task"
 import TaskForm from "./TaskForm"
 
 
-const Table = ({tasks, table, index, data, setData}) =>{
+const Table = ({tasks, table, index, data, allData, setData}) =>{
 
     const handleDeleteTable = (e) =>{
-        const index = data.tableOrder.indexOf(e)
-        console.log(data);
-        let reduceTableOrder = data.tableOrder
-        let reduceTable = data.tables
+        const index = data.content.tableOrder.indexOf(e)
+        let reduceTableOrder = data.content.tableOrder
+        let reduceTable = data.content.tables
         delete reduceTable[e]
         reduceTableOrder.splice(index, 1)
         setData({
-            ...data,
-            tableOrder: reduceTableOrder,
-            tables:reduceTable
+            ...allData,
         })
         //Crear una eliminación masiva de las tareas asignadas a una propia tabla
         // console.log(data.tasks);
@@ -58,10 +55,10 @@ const Table = ({tasks, table, index, data, setData}) =>{
                                         className={`px-3 py-3 rounded-sm shadow-lg ${style.backgroundColor}`}
                                     >
                                         {tasks.map((task, index) =>(
-                                            <Task key={task.id} task={task} index={index} data={data} setData={setData} tableId={table.id}/>
+                                            <Task key={task.id} task={task} index={index} data={data} allData={allData} setData={setData} tableId={table.id}/>
                                         ))}
                                         {provided.placeholder}
-                                        <TaskForm data={data} setData={setData} tableId={table.id}/>
+                                        <TaskForm data={data} setData={setData} tableId={table.id} allData={allData}/>
                                     </div>
                                 )
                                 

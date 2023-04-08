@@ -1,11 +1,12 @@
 import { useRef } from "react";
 
 
-const TaskForm = ({data, setData, tableId}) =>{
+const TaskForm = ({data, setData, tableId, allData}) =>{
     const tableRef = useRef(undefined);
+    console.log(data);
     const handleSubmit = (e) =>{
         e.preventDefault()
-        const id = Object.keys(data.tasks).length + 1
+        const id = Object.keys(data.content.tasks).length + 1
         const task = tableRef.current.value
         if (task !== "") {
             const newTask = {
@@ -14,11 +15,40 @@ const TaskForm = ({data, setData, tableId}) =>{
                     content: task
                 }
             }
-            const assignTask = {taskIds: [...data.tables[tableId].taskIds, "task-"+id]}
+            const assignTask = {taskIds: [...data.content.tables[tableId].taskIds, "task-"+id]}
+            
+            console.log({
+                ...allData,
+                projects:{
+                    ...allData.projects,
+                    [data.id]:{
+                        ...allData.projects[data.id],
+                        content:{
+                            ...data.content,
+                            tasks: Object.assign(data.content.tasks, newTask),
+                            tables: Object.assign({...data.content.tables, [tableId]: Object.assign(data.content.tables[tableId], assignTask)})
+                        }
+                    }
+                },
+                // ...data,
+                // tasks: Object.assign(data.tasks, newTask),
+                // tables: Object.assign({...data.tables, [tableId]: Object.assign(data.tables[tableId], assignTask)})
+
+            });
+            
             setData({
-                ...data,
-                tasks: Object.assign(data.tasks, newTask),
-                tables: Object.assign({...data.tables, [tableId]: Object.assign(data.tables[tableId], assignTask)})
+                ...allData,
+                projects:{
+                    ...allData.projects,
+                    [data.id]:{
+                        ...allData.projects[data.id],
+                        content:{
+                            ...data.content,
+                            tasks: Object.assign(data.content.tasks, newTask),
+                            tables: Object.assign({...data.content.tables, [tableId]: Object.assign(data.content.tables[tableId], assignTask)})
+                        }
+                    }
+                },
             })
             e.target.reset()
         }else{
