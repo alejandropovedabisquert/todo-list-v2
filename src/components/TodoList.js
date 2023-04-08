@@ -145,7 +145,7 @@ const TodoList = ({data, setData, projectId}) =>{
                         <TableForm data={data} setData={setData} projectId={projectId}/>
                       </div>
                       <div
-                        className={`flex min-h-full ${style.backgroundColor}`}
+                        className={`flex min-h-full w-fit ${style.backgroundColor}`}
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >
