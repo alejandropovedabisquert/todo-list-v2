@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import Table from "./Table"
-import TableForm from "./TableForm"
+import TableForm from "./forms/TableForm"
 
 
 const TodoList = ({data, setData, projectId}) =>{
@@ -14,8 +14,7 @@ const TodoList = ({data, setData, projectId}) =>{
     
         const start = data.projects[source.droppableId.substring(0, 9)].content.tables[source.droppableId]
         const end = data.projects[destination.droppableId.substring(0, 9)].content.tables[destination.droppableId]
-        // console.log(data.projects);
-        // console.log(destination.droppableId.substring(0, 9));
+
         if (type === "table") {
           // console.log(destination, source, draggableId)
           const newOrder = data.projects[source.droppableId].content.tableOrder
@@ -39,24 +38,6 @@ const TodoList = ({data, setData, projectId}) =>{
             taskIds
           }
     
-          // console.log(table.id, "nombre de la tabla");
-    
-          // console.log({
-          //   ...data,
-          //   projects:{
-          //     ...data.projects,
-          //     [source.droppableId.substring(0, 9)]: {
-          //       ...data.projects[source.droppableId.substring(0, 9)],
-          //       content: {
-          //         ...data.projects[source.droppableId.substring(0, 9)].content,
-          //         tables: {
-          //           ...data.projects[source.droppableId.substring(0, 9)].content.tables,
-          //           [table.id]:newTable,
-          //         }
-          //       }
-          //     }
-          //   }
-          // });
           setData({
             ...data,
             projects:{
@@ -90,24 +71,6 @@ const TodoList = ({data, setData, projectId}) =>{
           ...end,
           taskIds: endTaskIds
         }
-    
-        // console.log({
-        //   ...data,
-        //   projects:{
-        //     ...data.projects,
-        //     [source.droppableId.substring(0, 9)]: {
-        //       ...data.projects[source.droppableId.substring(0, 9)],
-        //       content: {
-        //         ...data.projects[source.droppableId.substring(0, 9)].content,
-        //         tables: {
-        //           ...data.projects[source.droppableId.substring(0, 9)].content.tables,
-        //           [start.id]: newStartTable,
-        //           [end.id]: endTaskTable
-        //         }
-        //       }
-        //     }
-        //   }
-        // }, "setData");
     
         setData({
           ...data,
@@ -175,14 +138,6 @@ const TodoList = ({data, setData, projectId}) =>{
                 }}
               </Droppable>
             </DragDropContext>
-        {/* {data.projectsOrder.map((projectId, index)=>{
-          const project = data.projects[projectId]
-          // console.log(project);
-          // console.log(project.content.tableOrder)
-          return(
-
-          )
-        })} */}
       </div>
     )
 }

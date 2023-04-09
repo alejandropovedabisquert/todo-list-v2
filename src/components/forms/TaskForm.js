@@ -3,7 +3,8 @@ import { useRef } from "react";
 
 const TaskForm = ({data, setData, tableId, allData}) =>{
     const tableRef = useRef(undefined);
-    console.log(data);
+    const buttonClassStyle = "border-2 z-10 bg-white w-full mt-2 border-secondary-color p-2 px-4 inline-block rounded-md shadow-md transition-all font-bold duration-300 relative hover:text-white before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:content-[''] before:absolute before:top-0 before:left-0 before:w-0 before:-z-10 before:bg-primary-color before:transition-all before:duration-300 before:hover:w-full"
+    // console.log(data);
     const handleSubmit = (e) =>{
         e.preventDefault()
         const id = Object.keys(data.content.tasks).length + 1
@@ -59,8 +60,10 @@ const TaskForm = ({data, setData, tableId, allData}) =>{
     return(
         <div>
             <form onSubmit={handleSubmit}>
-                <input type="text" ref={tableRef} placeholder="Tarea"/>
-                <button type="submit">Enviar</button>
+                <textarea type="text" ref={tableRef} placeholder="Escribe tu nueva tarea" className="block p-2.5 w-full text-sm text-gray-900 rounded shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-secondary-color"/>
+                <button type="submit" className={buttonClassStyle}>
+                    Enviar
+                </button>
             </form>
         </div>
     )
