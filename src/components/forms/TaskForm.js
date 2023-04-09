@@ -9,7 +9,7 @@ const TaskForm = ({data, setData, tableId, allData}) =>{
         e.preventDefault()
         const id = Object.keys(data.content.tasks).length + 1
         const task = tableRef.current.value
-        if (task !== "") {
+        if (task !== "" && task.trim().length !== 0) {
             const newTask = {
                 ["task-"+id]: {
                     id:"task-"+id,
@@ -62,7 +62,7 @@ const TaskForm = ({data, setData, tableId, allData}) =>{
             <form onSubmit={handleSubmit}>
                 <textarea type="text" ref={tableRef} placeholder="Escribe tu nueva tarea" className="block p-2.5 w-full text-sm text-gray-900 rounded shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-secondary-color"/>
                 <button type="submit" className={buttonClassStyle}>
-                    Enviar
+                    Añadir una tarea
                 </button>
             </form>
         </div>

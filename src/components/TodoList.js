@@ -97,18 +97,15 @@ const TodoList = ({data, setData, projectId}) =>{
         <div className='ml-72'>
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId={projectId} direction='horizontal' type='table'>
-                {(provided, snapshot)=>{
-                  const style = {
-                    backgroundColor: snapshot.isDraggingOver ? 'bg-red-400' : 'inherit',
-                  }
+                {(provided)=>{
                   return(
                     <>
-                      <div className='ml-5'>
-                        <h1 className='pt-3 text-2xl'>{data.projects[projectId].name}</h1>
+                      <div className='ml-5 pt-5 flex'>
+                        <h1 className='text-2xl font-bold'>{data.projects[projectId].name}</h1>
                         <TableForm data={data} setData={setData} projectId={projectId}/>
                       </div>
                       <div
-                        className={`flex min-h-full w-fit ${style.backgroundColor}`}
+                        className={`flex min-h-full w-fit md:w-full`}
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >

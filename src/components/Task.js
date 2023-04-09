@@ -23,7 +23,7 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
         <Draggable draggableId={task.id} index={index} type="task">
             {(provided, snapshot) =>{
                 const style = {
-                    background: snapshot.isDragging ? 'bg-orange-600' : 'bg-white',
+                    background: snapshot.isDragging ? 'bg-primary-color' : 'bg-white',
                 }
                 return(
                     <div

@@ -22,10 +22,7 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
 
     return(
         <Draggable index={index} draggableId={table.id} type='table'>
-            {(provided, snapshot) => {
-                const style = {
-                    backgroundColor: snapshot.isDragging ? 'bg-red-400' : 'inherit',
-                }
+            {(provided) => {
                 return(
                     <div
                         className={`w-72 min-w-[18rem] m-5`}
@@ -45,7 +42,7 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                         <Droppable droppableId={table.id} type="task">
                             {(provided, snapshot) => {
                                 const style = {
-                                    backgroundColor: snapshot.isDraggingOver ? 'bg-red-400' : 'bg-slate-50',
+                                    backgroundColor: snapshot.isDraggingOver ? 'bg-slate-200' : 'bg-slate-50',
                                 }
 
                                 return(
