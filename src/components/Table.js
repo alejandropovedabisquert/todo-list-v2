@@ -2,9 +2,12 @@ import { Draggable, Droppable } from "react-beautiful-dnd"
 import { FaTrashAlt, FaRegEdit } from "react-icons/fa";
 import Task from "./Task"
 import TaskForm from "./forms/TaskForm"
+import { useState } from "react";
+import InputMaker from "./InputMaker";
 
 
 const Table = ({tasks, table, index, data, allData, setData}) =>{
+    const [showInputEle, setShowInputEle] = useState(false);
     
     const handleDeleteTable = (e) =>{
         const index = data.content.tableOrder.indexOf(e)
@@ -30,12 +33,38 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                         ref={provided.innerRef}
                     >
                         <div 
-                            className="flex p-3 text-lg font-medium bg-slate-50 hover:bg-slate-200 rounded-t-md border-2 border-secondary-color border-b-0 group" 
+                            className="flex relative p-3 text-lg font-medium bg-slate-50 hover:bg-slate-200 rounded-t-md border-2 border-secondary-color border-b-0 group" 
                             {...provided.dragHandleProps}
                         >
-                            <h2 className="w-full font-bold break-words">{table.title}</h2>
-                            <div className="float-right">
-                                <span className="cursor-pointer hidden align-middle group-hover:inline-block opacity-40 hover:opacity-75" onClick={() => handleDeleteTable(table.id)}><FaTrashAlt color="red"/></span>
+                            {/* <h2 className="w-full font-bold break-words">{table.title}</h2> */}
+                            <InputMaker 
+                                value={table.title} 
+                                showInputEle={showInputEle}
+                                handleChange={(e) => setData({
+                                    ...allData,
+                                    projects:{
+                                        ...allData.projects,
+                                        [table.id.substring(0, 9)]:{
+                                            ...allData.projects[table.id.substring(0, 9)],
+                                            content:{
+                                                ...allData.projects[table.id.substring(0, 9)].content,
+                                                tables:{
+                                                    ...allData.projects[table.id.substring(0, 9)].content.tables,
+                                                    [table.id]:{
+                                                        ...allData.projects[table.id.substring(0, 9)].content.tables[table.id],
+                                                        title: e.target.value
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                })}
+                                class={"font-bold"}
+                                handleBlur={() => setShowInputEle(false)} 
+                            />
+                            <div className="float-right flex">
+                                <span className="cursor-pointer absolute hidden group-hover:inline-block group-hover:right-8 group-hover:p-1 group-hover:bg-slate-200 opacity-70 hover:opacity-95" onClick={() => setShowInputEle(true)}><FaRegEdit color="black"/></span>
+                                <span className="cursor-pointer hidden absolute align-middle group-hover:inline-block group-hover:right-1 group-hover:bg-slate-200 group-hover:p-1 opacity-70 hover:opacity-95" onClick={() => handleDeleteTable(table.id)}><FaTrashAlt color="red"/></span>
                             </div>
 
                         </div>
