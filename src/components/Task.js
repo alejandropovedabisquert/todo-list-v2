@@ -1,36 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Draggable } from "react-beautiful-dnd"
 import { FaTrashAlt, FaRegEdit } from "react-icons/fa";
 import InputMaker from "./InputMaker";
 
-export const TaskMaker = ({value, showInputEle, handleChange, handleBlur}) =>{
-    return(
-        <>
-        {
-            // Use JavaScript's ternary operator to specify <span>'s inner content
-            showInputEle ? (
-                <input 
-                    type="text"
-                    value={value.content}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    autoFocus
-                />
-                ) : (
-                <div 
-                    className="w-full break-words"
-                >
-                    {value.content}
-                </div>
-            )
-        }
-        </>
-    )
-
-}
 
 const Task = ({task, index, data, allData, setData, tableId}) =>{
     const [showInputEle, setShowInputEle] = useState(false);
+    const [validation, setValidation] = useState(false)
+    const inputRef = useRef()
     // console.log(data);
     const handleDeleteTask = (e) =>{
         // console.log(data);
@@ -49,7 +26,34 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
         // })
     }
 
-    
+    const handleValidation = () =>{
+        if (task.content !== "" && task.content.trim().length !== 0) {
+            setShowInputEle(false)
+            setValidation(false)
+        }else{
+            setShowInputEle(false)
+            setValidation(true)
+            setData({
+                ...allData,
+                projects:{
+                    ...allData.projects,
+                    [tableId.substring(0, 9)]:{
+                        ...allData.projects[tableId.substring(0, 9)],
+                        content:{
+                            ...allData.projects[tableId.substring(0, 9)].content,
+                            tasks:{
+                                ...allData.projects[tableId.substring(0, 9)].content.tasks,
+                                [task.id]:{
+                                   ...allData.projects[tableId.substring(0, 9)].content.tasks[task.id],
+                                    content: inputRef.current._wrapperState.initialValue
+                                }                            
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }    
 
     return(
         <Draggable draggableId={task.id} index={index} type="task">
@@ -69,6 +73,7 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
                             <InputMaker 
                                 value={task.content} 
                                 showInputEle={showInputEle}
+                                validation={validation}
                                 handleChange={(e) => setData({
                                     ...allData,
                                     projects:{
@@ -88,7 +93,8 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
                                         }
                                     }
                                 })}
-                                handleBlur={() => setShowInputEle(false)} 
+                                handleBlur={() => handleValidation()}
+                                inputReference={inputRef} 
                             />
                             <div className="float-right">
                                 <span className="cursor-pointer hidden rounded-md group-hover:inline-block group-hover:absolute group-hover:right-7 group-hover:p-1 group-hover:bg-slate-200 opacity-40 hover:opacity-75" onClick={() => setShowInputEle(true)}><FaRegEdit color="black"/></span>

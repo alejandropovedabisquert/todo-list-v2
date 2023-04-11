@@ -41,7 +41,7 @@ const TableForm = ({data, setData, projectId}) =>{
     }
 
     return(
-        <div className="ml-5">
+        <div className="mt-5 pl-4">
             <form onSubmit={handleSubmit}>
                 <input type="text" ref={tableRef} placeholder="Escribe tu nueva tabla" className="shadow-sm w-60 border border-gray-300 text-gray-900 text-sm rounded focus:ring-primary-500 focus:border-primary-500 p-2.5 focus:outline-none focus:ring-2 focus:ring-secondary-color"/>
                 <button type="submit" className={buttonClassStyle}>Añadir una tabla</button>

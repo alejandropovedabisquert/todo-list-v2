@@ -1,9 +1,15 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import Table from "./Table"
 import TableForm from "./forms/TableForm"
+import { FaRegEdit, FaTrashAlt } from "react-icons/fa"
+import { useRef, useState } from "react"
+import InputMaker from "./InputMaker"
 
 
 const TodoList = ({data, setData, projectId}) =>{
+  const [showInputEle, setShowInputEle] = useState(false);
+  const [validation, setValidation] = useState(false)
+  const inputRef = useRef()
 
     const handleDragEnd = ({destination, source, draggableId, type}) =>{
         if(!destination) return
@@ -91,7 +97,40 @@ const TodoList = ({data, setData, projectId}) =>{
         })
     
     
+    }
+
+    const handleDeleteProject = (e) =>{
+      const index = data.projectsOrder.indexOf(e.id)
+      let reduceProjectOrder = data.projectsOrder
+      let reduceProject = data.projects
+      delete reduceProject[e]
+      reduceProjectOrder.splice(index, 1)
+      console.log(reduceProjectOrder);
+      setData({
+          ...data,
+      })
+    }
+
+    const handleValidation = () =>{
+      if (data.projects[projectId].name !== "" && data.projects[projectId].name.trim().length !== 0) {
+          setShowInputEle(false)
+          setValidation(false)
+      }else{
+          setShowInputEle(false)
+          setValidation(true)
+          setData({
+            ...data,
+            projects:{
+                ...data.projects,
+                [projectId]:{
+                    ...data.projects[projectId],
+                    name: inputRef.current._wrapperState.initialValue
+                }
+            }
+        })
+
       }
+  }
 
     return(
         <div className='ml-72'>
@@ -100,33 +139,58 @@ const TodoList = ({data, setData, projectId}) =>{
                 {(provided)=>{
                   return(
                     <>
-                      <div className='ml-5 pt-5 flex'>
-                        <h1 className='text-2xl font-bold'>{data.projects[projectId].name}</h1>
-                        <TableForm data={data} setData={setData} projectId={projectId}/>
+                      <div className='pl-4 py-4 border-b-2 border-secondary-color bg-gray-50'>
+                        {/* <h1 className='text-2xl font-bold mr-2'>{data.projects[projectId].name}</h1> */}
+                        <div className="flex relative">
+                          <InputMaker 
+                                  value={data.projects[projectId].name} 
+                                  showInputEle={showInputEle}
+                                  validation={validation}
+                                  handleChange={(e) => setData({
+                                      ...data,
+                                      projects:{
+                                          ...data.projects,
+                                          [projectId]:{
+                                              ...data.projects[projectId],
+                                              name: e.target.value
+                                          }
+                                      }
+                                  })}
+                                  classStyle={"text-2xl font-bold mr-2"}
+                                  handleBlur={() => handleValidation()} 
+                                  inputReference={inputRef}
+                              />
+                          <div className="ml-5">
+                              <span className="cursor-pointer inline-block align-middle m-1 opacity-70 hover:opacity-95" onClick={() => setShowInputEle(true)}><FaRegEdit color="black" size={20}/></span>
+                              <span className="cursor-pointer inline-block align-middle m-1 opacity-70 hover:opacity-95" onClick={() => handleDeleteProject(data.projects[projectId])}><FaTrashAlt color="red" size={20}/></span>
+                          </div>
+                        </div>
                       </div>
                       <div
-                        className={`flex min-h-full w-fit md:w-full`}
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >
-                        {data.projects[projectId].content.tableOrder.map((tableId, index) =>{
-                          const table = data.projects[projectId].content.tables[tableId]
-                          // console.log(table);
-                          const tasks = table.taskIds.map(taskId => data.projects[projectId].content.tasks[taskId])
-                          // console.log(tasks);
-                          // console.log(project.content);
-                          return(
-                            <Table
-                              index={index}
-                              key={table.id}
-                              table={table}
-                              tasks={tasks}
-                              data={data.projects[projectId]}
-                              allData={data}
-                              setData={setData}
-                            />
-                          )
-                        })}
+                        <TableForm data={data} setData={setData} projectId={projectId}/>
+                        <div className="flex min-h-full w-fit md:w-full">
+                          {data.projects[projectId].content.tableOrder.map((tableId, index) =>{
+                            const table = data.projects[projectId].content.tables[tableId]
+                            // console.log(table);
+                            const tasks = table.taskIds.map(taskId => data.projects[projectId].content.tasks[taskId])
+                            // console.log(tasks);
+                            // console.log(project.content);
+                            return(
+                              <Table
+                                index={index}
+                                key={table.id}
+                                table={table}
+                                tasks={tasks}
+                                data={data.projects[projectId]}
+                                allData={data}
+                                setData={setData}
+                              />
+                            )
+                          })}
+                        </div>
                         {provided.placeholder}
                       </div>
                     </>

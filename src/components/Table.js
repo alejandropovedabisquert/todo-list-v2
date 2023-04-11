@@ -9,7 +9,7 @@ import { useRef } from "react";
 
 const Table = ({tasks, table, index, data, allData, setData}) =>{
     const [showInputEle, setShowInputEle] = useState(false)
-    const [validation, setValidation] = useState({type: false, message: "", inputStyle: "" ,opacity: false})
+    const [validation, setValidation] = useState(false)
     const inputRef = useRef()
     
     const handleDeleteTable = (e) =>{
@@ -28,13 +28,10 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
     const handleValidation = () =>{
         if (table.title !== "" && table.title.trim().length !== 0) {
             setShowInputEle(false)
-            setValidation({type: false, opacity:false})
+            setValidation(false)
         }else{
             setShowInputEle(false)
-            setValidation({type: true, message: "Debes poner un texto", inputStyle: "text-red-500", opacity:true})
-            setTimeout(() => setValidation({type: true, message: "Debes poner un texto", inputStyle: "text-red-500", opacity:false}), 2500)
-            setTimeout(() => setValidation([]), 3000)
-            setValidation({type: true, message: "Debes poner un texto", inputStyle: "text-red-500", opacity:true})
+            setValidation(true)
             setData({
                 ...allData,
                 projects:{
@@ -71,7 +68,6 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                             className="flex relative p-3 text-lg font-medium bg-slate-50 hover:bg-slate-200 transition-all duration-300 rounded-t-md border-2 border-secondary-color border-b-0 group" 
                             {...provided.dragHandleProps}
                         >
-                            {/* <h2 className="w-full font-bold break-words">{table.title}</h2> */}
                             <InputMaker 
                                 value={table.title} 
                                 showInputEle={showInputEle}
@@ -95,7 +91,7 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                                         }
                                     }
                                 })}
-                                class={"font-bold"}
+                                classStyle={"font-bold"}
                                 handleBlur={() => handleValidation()} 
                                 inputReference={inputRef}
                             />
