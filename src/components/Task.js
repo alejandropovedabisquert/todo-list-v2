@@ -68,7 +68,7 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
                         {...provided.draggableProps}
                         className={`p-2 pl-3 rounded-md shadow-md mb-3 last:mb-0 ${style.background}`}
                     >
-                        <div className="flex group relative">
+                        <div className="flex group relative break-all">
                             {/* <div className="w-full break-words">{task.content}</div> */}
                             <InputMaker 
                                 value={task.content} 

@@ -65,7 +65,7 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                         ref={provided.innerRef}
                     >
                         <div 
-                            className="flex relative p-3 text-lg font-medium bg-slate-50 hover:bg-slate-200 transition-all duration-300 rounded-t-md border-2 border-secondary-color border-b-0 group" 
+                            className="flex relative p-3 text-lg font-medium bg-slate-50 hover:bg-slate-200 transition-all duration-300 rounded-t-md border-2 border-secondary-color border-b-0 group break-all" 
                             {...provided.dragHandleProps}
                         >
                             <InputMaker 

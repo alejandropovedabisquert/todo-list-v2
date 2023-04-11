@@ -20,7 +20,7 @@ const InputMaker = ({value, showInputEle, handleChange, handleBlur, classStyle, 
                 
                 ) : (
                 <>
-                    <div className={`w-full break-words ${classStyle}`}>{value}</div>
+                    <p className={`w-full ${classStyle}`}>{value}</p>
                 </>
             )
         }        
