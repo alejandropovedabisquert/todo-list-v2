@@ -4,10 +4,13 @@ import Task from "./Task"
 import TaskForm from "./forms/TaskForm"
 import { useState } from "react";
 import InputMaker from "./InputMaker";
+import { useRef } from "react";
 
 
 const Table = ({tasks, table, index, data, allData, setData}) =>{
-    const [showInputEle, setShowInputEle] = useState(false);
+    const [showInputEle, setShowInputEle] = useState(false)
+    const [validation, setValidation] = useState({type: false, message: "", opacity: false})
+    const inputRef = useRef()
     
     const handleDeleteTable = (e) =>{
         const index = data.content.tableOrder.indexOf(e)
@@ -22,6 +25,32 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
         // console.log(data.tasks);
     }
 
+    const handleValidation = () =>{
+        if (table.title !== "" && table.title.trim().length !== 0) {
+            setShowInputEle(false)
+        }else{
+            setValidation({type: true, message: "prueba magica", opacity:true})
+            setData({
+                ...allData,
+                projects:{
+                    ...allData.projects,
+                    [table.id.substring(0, 9)]:{
+                        ...allData.projects[table.id.substring(0, 9)],
+                        content:{
+                            ...allData.projects[table.id.substring(0, 9)].content,
+                            tables:{
+                                ...allData.projects[table.id.substring(0, 9)].content.tables,
+                                [table.id]:{
+                                    ...allData.projects[table.id.substring(0, 9)].content.tables[table.id],
+                                    title: inputRef.current._wrapperState.initialValue
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
 
     return(
         <Draggable index={index} draggableId={table.id} type='table'>
@@ -40,6 +69,7 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                             <InputMaker 
                                 value={table.title} 
                                 showInputEle={showInputEle}
+                                validation={validation}
                                 handleChange={(e) => setData({
                                     ...allData,
                                     projects:{
@@ -60,7 +90,8 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                                     }
                                 })}
                                 class={"font-bold"}
-                                handleBlur={() => setShowInputEle(false)} 
+                                handleBlur={() => handleValidation()} 
+                                inputReference={inputRef}
                             />
                             <div className="float-right flex">
                                 <span className="cursor-pointer absolute hidden group-hover:inline-block group-hover:right-8 group-hover:p-1 group-hover:bg-slate-200 opacity-70 hover:opacity-95" onClick={() => setShowInputEle(true)}><FaRegEdit color="black"/></span>
