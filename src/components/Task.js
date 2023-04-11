@@ -49,6 +49,8 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
         // })
     }
 
+    
+
     return(
         <Draggable draggableId={task.id} index={index} type="task">
             {(provided, snapshot) =>{
