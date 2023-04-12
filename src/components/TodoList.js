@@ -133,7 +133,7 @@ const TodoList = ({data, setData, projectId}) =>{
   }
 
     return(
-        <div className='lg:pl-72 min-w-full w-max overflow-auto'>
+        <div className='lg:pl-72 min-w-full w-max'>
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId={projectId} direction='horizontal' type='table'>
                 {(provided, snapshot)=>{
