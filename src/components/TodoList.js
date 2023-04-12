@@ -133,7 +133,7 @@ const TodoList = ({data, setData, projectId}) =>{
   }
 
     return(
-        <div className='lg:pl-72 min-w-full w-max'>
+        <div className='lg:pl-72 min-w-full w-full'>
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId={projectId} direction='horizontal' type='table'>
                 {(provided, snapshot)=>{
@@ -172,7 +172,7 @@ const TodoList = ({data, setData, projectId}) =>{
                         ref={provided.innerRef}
                       >
                         <TableForm data={data} setData={setData} projectId={projectId}/>
-                        <div className={`flex overflow-auto h-full min-w-full w-max bg-red-500 ${snapshot.isDraggingOver ? "mr-80": null} ${snapshot.isUsingPlaceholder ? "mr-80": null}`}>
+                        <div className={`flex overflow-y-auto h-full w-full bg-red-500 ${snapshot.isDraggingOver ? "mr-80": null} ${snapshot.isUsingPlaceholder ? "mr-80": null}`}>
                           {data.projects[projectId].content.tableOrder.map((tableId, index) =>{
                             const table = data.projects[projectId].content.tables[tableId]
                             // console.log(table);
