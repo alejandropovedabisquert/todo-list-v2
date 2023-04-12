@@ -133,10 +133,11 @@ const TodoList = ({data, setData, projectId}) =>{
   }
 
     return(
-        <div className='ml-72'>
+        <div className='lg:pl-72 w-max lg:w-full'>
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId={projectId} direction='horizontal' type='table'>
-                {(provided)=>{
+                {(provided, snapshot)=>{
+                  console.log(snapshot);
                   return(
                     <>
                       <div className='pl-4 py-4 border-b-2 border-secondary-color bg-gray-50'>
@@ -171,7 +172,7 @@ const TodoList = ({data, setData, projectId}) =>{
                         ref={provided.innerRef}
                       >
                         <TableForm data={data} setData={setData} projectId={projectId}/>
-                        <div className="flex min-h-full w-fit md:w-full">
+                        <div className={`flex h-full w-full bg-red-500 ${snapshot.isDraggingOver ? "mr-80": null}`}>
                           {data.projects[projectId].content.tableOrder.map((tableId, index) =>{
                             const table = data.projects[projectId].content.tables[tableId]
                             // console.log(table);

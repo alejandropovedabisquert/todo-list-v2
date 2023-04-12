@@ -7,7 +7,7 @@ const Nav = ({data, setData}) =>{
     const activationNav = location.pathname.substring(1, location.pathname.length)
 
     return(
-        <div className="fixed min-h-[300px] h-full w-72 border-r-2 border-secondary-color bg-slate-50 z-50 overflow-y-auto">
+        <div className="fixed min-h-[300px] h-full w-72 border-r-2 border-secondary-color bg-slate-50 z-50 overflow-y-auto hidden lg:block">
            
             <Link to="/"><h1 className='text-center py-4 text-2xl border-b-2 border-secondary-color'>TODO List</h1></Link>
             <ProjectForm data={data} setData={setData}/>
