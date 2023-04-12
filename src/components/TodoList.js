@@ -172,7 +172,7 @@ const TodoList = ({data, setData, projectId}) =>{
                         ref={provided.innerRef}
                       >
                         <TableForm data={data} setData={setData} projectId={projectId}/>
-                        <div className={`flex h-full w-full bg-red-500 ${snapshot.isDraggingOver ? "mr-80": null}`}>
+                        <div className={`flex min-h-[20rem] h-full w-full bg-red-500 ${snapshot.isDraggingOver ? "mr-80": null}`}>
                           {data.projects[projectId].content.tableOrder.map((tableId, index) =>{
                             const table = data.projects[projectId].content.tables[tableId]
                             // console.log(table);
