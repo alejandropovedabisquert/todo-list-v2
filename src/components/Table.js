@@ -126,7 +126,6 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                         
                     </div> 
                 )
-               
             }}
         </Draggable>
     )
