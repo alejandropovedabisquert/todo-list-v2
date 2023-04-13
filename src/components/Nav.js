@@ -76,7 +76,7 @@ const Nav = ({data, setData}) =>{
                 <div className="mt-4">
                     {data.projectsOrder !== undefined ? data.projectsOrder.map((projectId)=>{
                         return(
-                            <Link to={"/"+projectId} data={data} key={projectId} open={open}>
+                            <Link to={"/"+projectId} data={data} key={projectId}>
                                 <div className={`flex w-full hover:bg-primary-color transition-all duration-300 ${activationNav === projectId ? 'bg-primary-color': null} group`}>
                                     <div className={`text-xl w-full px-10 py-2  break-words`}>{data.projects[projectId].name}</div>
                                 </div>
