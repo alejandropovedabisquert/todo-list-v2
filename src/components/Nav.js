@@ -52,7 +52,7 @@ const Nav = ({data, setData}) =>{
 
     return(
         <>
-            <nav className="nav fixed top-0 z-50 w-full block lg:hidden">
+            <nav className="nav fixed top-0 z-50 w-screen block lg:hidden">
                 <div className="grid">
                     <div ref={ref} className="link-list absolute right-0">
                         <ApMenuButton open={open} setOpen={setOpen}/>
