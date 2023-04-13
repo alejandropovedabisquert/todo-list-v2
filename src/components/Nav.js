@@ -11,17 +11,6 @@ const Nav = ({data, setData}) =>{
     const ref = useRef()
 
 
-    const listarMenu = data.projectsOrder !== undefined ? data.projectsOrder.map((projectId)=>{
-        return(
-            <Link to={"/"+projectId} data={data} key={projectId}>
-                <div className={`flex w-full hover:bg-primary-color transition-all duration-300 ${activationNav === projectId ? 'bg-primary-color': null} group`}>
-                    <div className={`text-xl w-full px-10 py-2  break-words`}>{data.projects[projectId].name}</div>
-                </div>
-            </Link>
-        
-        )}
-    ):null
-
     useEffect(()=>{
         const checkIfClickedOutside = e => {
             // Si el menu está abierto y el target del click no esta en el menu
@@ -52,22 +41,7 @@ const Nav = ({data, setData}) =>{
 
     return(
         <>
-            {/* <nav className="nav fixed top-0 z-50 w-screen block lg:hidden">
-                <div className="grid">
-                    <div ref={ref} className="link-list absolute right-0">
-                        <ApMenuButton open={open} setOpen={setOpen}/>
-                        <div className={`circle-menu shadow-xl origin-[100%_0%] absolute right-0 ease duration-300 ${open ? 'w-screen h-screen bg-slate-50': 'w-0 h-0'}`}>
-                            <div className={`${open ? 'transition-opacity duration-300 opacity-100 delay-300': 'opacity-0'} `}>
-                                {
-                                    open && 
-                                            <ul className="absolute transition-all right-[80px] md:right-[100px] top-[70px] md:top-[100px] leading-[40px] md:leading-[50px] text-3xl md:text-4xl text-center">{listarMenu}</ul>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav> */}
-            <div className={`overflow-y-auto lg:fixed min-h-[300px] h-full lg:w-72 border-r-2 border-secondary-color bg-slate-50 z-50 transition-all ${open ? "w-screen fixed": "w-24 absolute"}`}>
+            <div className={`overflow-y-auto block lg:hidden lg:fixed min-h-[300px] h-full lg:w-72 border-r-2 border-secondary-color bg-slate-50 z-50 transition-all ${open ? "w-screen fixed": "w-24 absolute"}`}>
                 <Link to="/" onClick={()=> setOpen(false)}><h1 className={`text-center py-4 text-2xl border-b-2 border-secondary-color ${open ? null: "hidden"}`}>TODO List</h1></Link>
                 <ApMenuButton open={open} setOpen={setOpen}/>
                 <>
@@ -94,6 +68,21 @@ const Nav = ({data, setData}) =>{
                             </>
                                 
                     }
+                </div>
+            </div>
+            <div className={`overflow-y-auto hidden lg:block lg:fixed min-h-[300px] h-full lg:w-72 border-r-2 border-secondary-color bg-slate-50 z-50 transition-all`}>
+                <Link to="/"><h1 className={`text-center py-4 text-2xl border-b-2 border-secondary-color`}>TODO List</h1></Link>
+                <ProjectForm data={data} setData={setData}/>
+                <div className="mt-4">
+                    {data.projectsOrder !== undefined ? data.projectsOrder.map((projectId)=>{
+                        return(
+                            <Link to={"/"+projectId} data={data} key={projectId} open={open}>
+                                <div className={`flex w-full hover:bg-primary-color transition-all duration-300 ${activationNav === projectId ? 'bg-primary-color': null} group`}>
+                                    <div className={`text-xl w-full px-10 py-2  break-words`}>{data.projects[projectId].name}</div>
+                                </div>
+                            </Link>
+                        )
+                    }):null}
                 </div>
             </div>
         </>

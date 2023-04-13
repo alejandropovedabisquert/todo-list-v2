@@ -6,7 +6,7 @@ import { useRef, useState } from "react"
 import InputMaker from "./InputMaker"
 
 
-const TodoList = ({data, setData, projectId}) =>{
+const TodoList = ({data, setData, projectId, open}) =>{
   const [showInputEle, setShowInputEle] = useState(false);
   const [validation, setValidation] = useState(false)
   const inputRef = useRef()
@@ -133,7 +133,7 @@ const TodoList = ({data, setData, projectId}) =>{
   }
 
     return(
-        <div className='pl-24 lg:pl-72 min-w-full w-max'>
+        <div className={`pl-24 lg:pl-72 min-w-full w-max ${open ? "hidden": null}`}>
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId={projectId} direction='horizontal' type='table'>
                 {(provided, snapshot)=>{
