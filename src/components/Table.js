@@ -60,7 +60,7 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
             {(provided) => {
                 return(
                     <div
-                        className={`w-72 min-w-[18rem] my-5 mx-1 md:m-5`}
+                        className={`w-72 min-w-[18rem] my-5 mx-1 md:m-5 max-h-160`}
                         {...provided.draggableProps}
                         ref={provided.innerRef}
                     >
@@ -113,9 +113,11 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
                                         {...provided.droppableProps}
                                         className={`px-3 py-3 rounded-b-md border-2 border-secondary-color border-t-0 transition-all duration-300 shadow-lg ${style.backgroundColor}`}
                                     >
-                                        {tasks.map((task, index) =>(
-                                            <Task key={task.id} task={task} index={index} data={data} allData={allData} setData={setData} tableId={table.id}/>
-                                        ))}
+                                        <div className="pb-3 max-h-48 lg:max-h-96 overflow-y-auto">
+                                            {tasks.map((task, index) =>(
+                                                <Task key={task.id} task={task} index={index} data={data} allData={allData} setData={setData} tableId={table.id}/>
+                                            ))}
+                                        </div>
                                         {provided.placeholder}
                                         <TaskForm data={data} setData={setData} tableId={table.id} allData={allData}/>
                                     </div>
