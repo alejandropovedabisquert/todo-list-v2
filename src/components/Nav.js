@@ -41,7 +41,7 @@ const Nav = ({data, setData}) =>{
 
     return(
         <>
-            <div className={`overflow-y-auto block lg:hidden lg:fixed min-h-[300px] h-full lg:w-72 border-r-2 border-secondary-color bg-slate-50 z-50 transition-all ${open ? "w-screen fixed": "w-24 absolute"}`}>
+            <div className={`overflow-y-auto block lg:hidden lg:fixed min-h-[300px] h-screen lg:w-72 border-r-2 border-secondary-color bg-slate-50 z-50 transition-all ${open ? "w-screen fixed": "w-24 absolute"}`}>
                 <Link to="/" onClick={()=> setOpen(false)}><h1 className={`text-center py-4 text-2xl border-b-2 border-secondary-color ${open ? null: "hidden"}`}>TODO List</h1></Link>
                 <ApMenuButton open={open} setOpen={setOpen}/>
                 <>

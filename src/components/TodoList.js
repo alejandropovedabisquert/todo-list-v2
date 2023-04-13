@@ -6,7 +6,7 @@ import { useRef, useState } from "react"
 import InputMaker from "./InputMaker"
 
 
-const TodoList = ({data, setData, projectId, open}) =>{
+const TodoList = ({data, setData, projectId}) =>{
   const [showInputEle, setShowInputEle] = useState(false);
   const [validation, setValidation] = useState(false)
   const inputRef = useRef()
