@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import MenuButton from "./MenuButton"
 
 const Nav = ({data, setData}) =>{
-    // console.log(data)
+
     const location = useLocation()
     const activationNav = location.pathname.substring(1, location.pathname.length)
     const [open, setOpen] = useState(false)

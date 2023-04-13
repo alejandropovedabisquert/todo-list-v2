@@ -4,7 +4,6 @@ const InputMaker = ({value, showInputEle, handleChange, handleBlur, classStyle, 
     return(
         <div className="inline-block">
         {
-            // Use JavaScript's ternary operator to specify <span>'s inner content
             showInputEle ? (
                 <>
                     <input 

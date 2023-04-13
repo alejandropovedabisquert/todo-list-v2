@@ -2,8 +2,8 @@ import { Draggable, Droppable } from "react-beautiful-dnd"
 import { FaTrashAlt, FaRegEdit } from "react-icons/fa";
 import Task from "./Task"
 import TaskForm from "./forms/TaskForm"
-import { useState } from "react";
 import InputMaker from "./InputMaker";
+import { useState } from "react";
 import { useRef } from "react";
 
 
@@ -22,7 +22,6 @@ const Table = ({tasks, table, index, data, allData, setData}) =>{
             ...allData,
         })
         //Crear una eliminación masiva de las tareas asignadas a una propia tabla
-        // console.log(data.tasks);
     }
 
     const handleValidation = () =>{

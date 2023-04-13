@@ -8,9 +8,9 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
     const [showInputEle, setShowInputEle] = useState(false);
     const [validation, setValidation] = useState(false)
     const inputRef = useRef()
-    // console.log(data);
+
     const handleDeleteTask = (e) =>{
-        // console.log(data);
+
         const index = data.content.tables[tableId].taskIds.indexOf(e)
         let reduceTask = data.content.tasks
         let reduceTaskAssigned = data.content.tables[tableId].taskIds
@@ -19,11 +19,6 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
         setData({
             ...allData,
         })
-        // setData({
-        //     ...data,
-        //     tasks: reduceTask,
-        //     tables: Object.assign({...data.tables, [tableId]: Object.assign(data.tables[tableId], {taskIds: reduceTaskAssigned})})
-        // })
     }
 
     const handleValidation = () =>{
@@ -69,7 +64,6 @@ const Task = ({task, index, data, allData, setData, tableId}) =>{
                         className={`p-2 pl-3 rounded-md shadow-md mb-3 last:mb-0 ${style.background}`}
                     >
                         <div className="flex group relative break-all">
-                            {/* <div className="w-full break-words">{task.content}</div> */}
                             <InputMaker 
                                 value={task.content} 
                                 showInputEle={showInputEle}

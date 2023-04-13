@@ -18,8 +18,6 @@ const TableForm = ({data, setData, projectId}) =>{
                 }
             }
 
-            // console.log(newTable);
-
             setData({
                 ...data,
                 projects:{

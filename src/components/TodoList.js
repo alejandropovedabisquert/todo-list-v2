@@ -22,7 +22,6 @@ const TodoList = ({data, setData, projectId}) =>{
         const end = data.projects[destination.droppableId.substring(0, 9)].content.tables[destination.droppableId]
 
         if (type === "table") {
-          // console.log(destination, source, draggableId)
           const newOrder = data.projects[source.droppableId].content.tableOrder
           newOrder.splice(source.index, 1)
           newOrder.splice(destination.index, 0, draggableId)
@@ -105,7 +104,6 @@ const TodoList = ({data, setData, projectId}) =>{
       let reduceProject = data.projects
       delete reduceProject[e]
       reduceProjectOrder.splice(index, 1)
-      console.log(reduceProjectOrder);
       setData({
           ...data,
       })
@@ -137,11 +135,9 @@ const TodoList = ({data, setData, projectId}) =>{
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId={projectId} direction='horizontal' type='table'>
                 {(provided, snapshot)=>{
-                  console.log(snapshot);
                   return(
                     <>
                       <div className='pl-4 py-4 border-b-2 border-secondary-color bg-gray-50'>
-                        {/* <h1 className='text-2xl font-bold mr-2'>{data.projects[projectId].name}</h1> */}
                         <div className="flex relative">
                           <InputMaker 
                                   value={data.projects[projectId].name} 
@@ -175,10 +171,8 @@ const TodoList = ({data, setData, projectId}) =>{
                         <div className={`flex h-full min-w-full w-max ${snapshot.isDraggingOver ? "mr-80": null} ${snapshot.isUsingPlaceholder ? "mr-80": null}`}>
                           {data.projects[projectId].content.tableOrder.map((tableId, index) =>{
                             const table = data.projects[projectId].content.tables[tableId]
-                            // console.log(table);
                             const tasks = table.taskIds.map(taskId => data.projects[projectId].content.tasks[taskId])
-                            // console.log(tasks);
-                            // console.log(project.content);
+
                             return(
                               <Table
                                 index={index}
