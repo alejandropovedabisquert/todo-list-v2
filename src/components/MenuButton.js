@@ -1,4 +1,4 @@
-const ApMenuButton = ({open, setOpen}) =>{
+const MenuButton = ({open, setOpen}) =>{
 
   const hamburguerButton = `flex flex-col scale-75 z-10 h-20 w-full cursor-pointer justify-center items-center group relative`
     const genericHamburgerLine = `h-[6px] w-9 my-1 rounded-full bg-black transition ease transform duration-300`
@@ -28,4 +28,4 @@ const ApMenuButton = ({open, setOpen}) =>{
     )
 }
 
-export default ApMenuButton
+export default MenuButton

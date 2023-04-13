@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom"
 import ProjectForm from "./forms/ProjectForm"
 import { useEffect, useRef, useState } from "react"
-import ApMenuButton from "./ApMenuButton"
+import MenuButton from "./MenuButton"
 
 const Nav = ({data, setData}) =>{
     // console.log(data)
@@ -43,7 +43,7 @@ const Nav = ({data, setData}) =>{
         <>
             <div className={`overflow-y-auto block lg:hidden lg:fixed min-h-[300px] h-full lg:w-72 border-r-2 border-secondary-color bg-slate-50 z-50 transition-all ${open ? "w-screen fixed": "w-24 fixed"}`}>
                 <Link to="/" onClick={()=> setOpen(false)}><h1 className={`text-center py-4 text-2xl border-b-2 border-secondary-color ${open ? null: "hidden"}`}>TODO List</h1></Link>
-                <ApMenuButton open={open} setOpen={setOpen}/>
+                <MenuButton open={open} setOpen={setOpen}/>
                 <>
                 {
                     open &&
